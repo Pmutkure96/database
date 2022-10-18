@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<types:mule xmlns:types="http://www.mulesoft.org/schema/mule/types">
+  <types:catalog>
+    <types:type name="inputcsvfile" format="csv">
+      <types:shape format="weave" example="examples/financial-survey-2021-csv.csv"><![CDATA[%dw 2.0
+
+type inputcsvfile = Array<{|  "﻿year": String,   industry_code_ANZSIC: String,   industry_name_ANZSIC: String,   rme_size_grp: String,   variable: String,   value: String,   unit: String|}> {"isQuotedString": "false",
+"header": "true",
+"headerLineNumber": "0"}
+
+]]></types:shape>
+      <types:properties>
+        <types:property name="headerLineNumber" value="0"/>
+        <types:property name="header" value="true"/>
+        <types:property name="isQuotedString" value="false"/>
+      </types:properties>
+    </types:type>
+  </types:catalog>
+  <types:enrichment select="#f2d3ae58-e51a-4414-bddd-31135c0cd61e">
+    <types:processor-declaration>
+      <types:input-event>
+        <types:message>
+          <types:payload type="inputcsvfile"/>
+        </types:message>
+      </types:input-event>
+    </types:processor-declaration>
+  </types:enrichment>
+</types:mule>
